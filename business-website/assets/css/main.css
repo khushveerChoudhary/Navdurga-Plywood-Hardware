@@ -1,0 +1,231 @@
+/* Color Palette */
+:root {
+    /* Cohesive wood-inspired palette */
+    --background-color: #FBFAF8; /* very light warm gray */
+    --text-color: #cfb9b9; /* dark charcoal for text */
+
+    /* Header / Footer (warm wood tones) */
+    --header-bg: #5a3e36; /* warm wood brown */
+    --header-rgb: 90,62,54; /* rgb for translucent header */
+    --header-text: #8b7878;
+    --footer-bg: #3a2b28; /* deeper wood shade */
+    --footer-rgb: 58,43,40;
+    --footer-text: #c1b7ad;
+
+    /* Accent / categories palette (harmonious, distinct) */
+    --accent-color: #c6c1b4; /* soft amber */
+    --category-1: #554f4b; /* terracotta / wood highlight */
+    --category-2: #6aa84f; /* olive green */
+    --category-3: #4a90e2; /* muted workshop blue */
+    --muted-brown: #9d8d7b; /* grey-brown for paragraph text */
+    /* background overlay control (0 = no overlay, 1 = fully opaque) */
+    --bg-overlay: 0.6;
+}
+
+body {
+    /* Use the supplied main image as the full-page background with an adjustable dark overlay for readability.
+       The overlay opacity (--bg-overlay) is adjusted by JS on scroll so the image becomes more prominent. */
+    background: linear-gradient(rgba(11,10,9,var(--bg-overlay)), rgba(11,10,9,var(--bg-overlay))), url("../../main img.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    transition: background 300ms linear;
+}
+
+/* Header */
+.header,
+header {
+    /* Frosted mica header: translucent so background image shows through with stronger blur */
+    background: rgba(var(--header-rgb), 0.40);
+    color: var(--header-text);
+    padding: 18px 0;
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 6px 24px rgba(8, 10, 14, 0.12);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    color: var(--header-text);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+/* Hero Section Styles */
+.hero {
+    /* Keep hero transparent so the page background shows through; use padding for spacing */
+    background: transparent;
+    color: #fff;
+    text-align: center;
+    padding: 80px 20px;
+    min-height: 48vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header nav ul li {
+    display: inline-block;
+    margin: 0 12px;
+}
+
+.header nav ul li a {
+    color: var(--header-text);
+    text-decoration: none;
+}
+
+section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.card {
+    /* Acrylic panel base */
+    position: relative;
+    overflow: hidden;
+    background: rgba(211, 194, 194, 0.36);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+    margin: 20px;
+    padding: 22px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 200ms ease;
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: var(--text-color);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(16, 24, 40, 0.09);
+}
+
+/* Pseudo-element image layer for cards that need backgrounds */
+.services-section .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: brightness(0.7) saturate(0.95);
+    transform: scale(1.02);
+    transition: transform 0.6s ease, filter 0.3s ease, opacity 0.4s ease;
+    opacity: 0.95;
+}
+
+/* Overlay layer on top of image but behind content to produce acrylic tint */
+.services-section .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
+    mix-blend-mode: overlay;
+}
+
+/* Ensure card contents sit above image/overlay */
+.services-section .card * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Category specific colors (apply matching palette) */
+.services-section .card.card--1 {
+    /* Plywood image behind acrylic card */
+    background: rgba(255,255,255,0.28);
+}
+.services-section .card.card--1::before {
+    background-image: url("../../ply.jpg");
+}
+
+.services-section .card.card--2 {
+    background: rgba(255,255,255,0.28);
+}
+.services-section .card.card--2::before {
+    background-image: url("../../hwd.jpg");
+}
+
+.services-section .card.card--3 {
+    /* Keep a subtle blue-tinted acrylic for the custom solutions card */
+    background: rgba(112, 130, 152, 0.08);
+}
+.services-section .card.card--3::before {
+    /* Custom solutions image behind acrylic card (replaced with provided image 4 img) */
+    background-image: url("../../4 img.jpg");
+}
+
+.services-section .card.card--1 h3,
+.services-section .card.card--2 h3,
+.services-section .card.card--3 h3 {
+    color: #eae6da;
+}
+
+/* Muted grey-brown paragraphs for about/services and card bodies */
+.about-section p,
+.services-section p,
+.services-section .card p,
+.contact-section p {
+    color: var(--muted-brown);
+}
+
+/* Make hero paragraph match about-us paragraph color */
+.hero .animate-text {
+    /* light grey for subtle emphasis over the frosted background */
+    color: #ceb4b4;
+}
+
+/* Footer */
+.footer,
+footer {
+    text-align: center;
+    padding: 24px 16px;
+    /* Frosted footer to match header */
+    background: rgba(var(--footer-rgb), 0.42);
+    color: var(--footer-text);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 -6px 20px rgba(8, 10, 14, 0.08);
+}
+
+#categories {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+h1, h2 {
+    color: var(--accent-color);
+}
